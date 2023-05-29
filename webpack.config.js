@@ -10,7 +10,7 @@ const LinkTypePlugin =
 module.exports = {
   mode: "development",
   entry: {
-    index: './src/js/index.js',
+    home: './src/js/home.js',
     search: './src/js/search.js'
   },
   output: {
