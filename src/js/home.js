@@ -151,7 +151,6 @@ function updateCarouselItem(children, product) {
 
   children[1].onclick = (e) => {
     e.preventDefault();
-    console.log('clicked product', product)
     window.location.href = 'details.html?product=' + product.id
   }
 
@@ -180,20 +179,76 @@ function selectRandomItems(arr, quantity) {
 }
 
 function fillCarousel(products) {
-  console.log(products)
-  const carouselItems = document.querySelectorAll(".carousel-item")
+  console.log(products);
+  const carouselItems = document.querySelectorAll(".carousel-item");
 
-  console.log(carouselItems)  
+  console.log(carouselItems);
 
-  const carouselProducts = selectRandomItems(products, carouselItems.length)
+  const carouselProducts = selectRandomItems(products, carouselItems.length);
 
   for (let i = 0; i < carouselItems.length; i++) {
-    updateCarouselItem(carouselItems[i].children, carouselProducts[i])
+    updateCarouselItem(carouselItems[i].children, carouselProducts[i]);
   }
 }
 
-async function fillProductsPage(products, pageNumber) {
+function fillProductsPage(products, pageNumber) {
 
+}
+
+function addProductsToMostReviewed(products, count) {
+  products.sort((a, b) => b.rating.count - a.rating.count);
+
+  const reviews = document.getElementById("reviews");
+
+  const previousProductCount = reviews.childElementCount - 1 // -1 because one of the child is the see more button
+
+  for(let i = 0; i < count; i++) {
+    const product = products[previousProductCount + i];
+
+    const childDiv = document.createElement('div');
+    childDiv.id = 'review-product-'+ product.id;
+    
+    const imageElement = document.createElement('img');
+    imageElement.src = product.image;
+    imageElement.classList.add('review-image');
+    imageElement.onclick = (e) => {
+      e.preventDefault();
+      window.location.href = 'details.html?product=' + product.id
+    }
+    
+    const paragraphContainer = document.createElement('div');
+    paragraphContainer.classList.add('paragraph-container');
+    
+    const title = document.createElement('a');
+    title.textContent = product.title;
+    paragraphContainer.appendChild(title);
+    title.classList.add("review-title")
+    title.setAttribute('href', 'details.html?product=' + product.id)
+    
+    const reviewStatus = document.createElement('p');
+    reviewStatus.textContent = product.title;
+    paragraphContainer.appendChild(reviewStatus);
+    reviewStatus.classList.add("review-stars")
+    
+    const price = document.createElement('p');
+    price.textContent = `R$: ${product.price}`;
+    paragraphContainer.appendChild(price);
+    price.classList.add("review-price")
+    
+    childDiv.appendChild(imageElement);
+    childDiv.appendChild(paragraphContainer);
+
+    reviews.insertBefore(childDiv, reviews.lastElementChild)
+  }
+
+}
+
+function setupSeeMoreReviewsButton(products) {
+  const button = document.getElementById("see-more-reviews");
+
+  button.onclick = () => {
+    addProductsToMostReviewed(products, 2)
+  }
 }
 
 async function setup () {
@@ -201,10 +256,9 @@ async function setup () {
   products = await fetchProducts();
   fillCarousel(products);
   fillProductsPage(products, 0);
+  addProductsToMostReviewed(products, 5);
+  setupSeeMoreReviewsButton(products);
 }
-
-
-console.log('teste', window.location.pathname);
 
 if (window.location.pathname === '/home.html') {
   setup()

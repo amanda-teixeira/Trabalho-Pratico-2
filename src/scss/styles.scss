@@ -69,6 +69,7 @@ div {
     max-height: 1200px;
     height: fit-content;
     padding-bottom: 8px;
+    margin-top: 48px;
   }
   .footer {
     min-height: 100px;
@@ -146,6 +147,17 @@ img {
 .carousel-control-next,
 .carousel-control-prev {
   filter: invert(100%);
+}
+
+.review-image {
+  margin: 8px;
+  height: 80px;
+  width: 80px;
+  cursor: pointer;
+}
+
+.review-price {
+  font-weight: bold;
 }
 
 .search {
