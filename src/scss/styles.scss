@@ -156,8 +156,21 @@ img {
   cursor: pointer;
 }
 
-.review-price {
+.display-image {
+  cursor: pointer;
+  height: 300px;
+  width: auto;
+  max-width: 100%;
+}
+
+.review-price,
+.display-price {
   font-weight: bold;
+}
+
+.single-product-display {
+  width: 40%;
+  height: 30%;
 }
 
 .search {

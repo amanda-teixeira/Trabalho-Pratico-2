@@ -32,12 +32,10 @@ function firstLetterUpperCase(text) {
 
 async function fillCategories (categories)  {
 
-  console.log(categories)
   const select = document.getElementById("category-select")
 
   // Removing previous options
   for (let i = select.options.length - 1; i >= 0 ; i--) {
-    console.log('removing', i, select)
     select.remove(i)
   }
 
@@ -179,10 +177,7 @@ function selectRandomItems(arr, quantity) {
 }
 
 function fillCarousel(products) {
-  console.log(products);
   const carouselItems = document.querySelectorAll(".carousel-item");
-
-  console.log(carouselItems);
 
   const carouselProducts = selectRandomItems(products, carouselItems.length);
 
@@ -191,8 +186,65 @@ function fillCarousel(products) {
   }
 }
 
-function fillProductsPage(products, pageNumber) {
+function normalizePrice(price) {
+  return parseFloat(price).toFixed(2).replace('.', ',');
+}
 
+function cutString(string, maxLength) {
+  if (maxLength >= string.length) {
+    return string;
+  }
+  
+  console.log("string", string, typeof string)
+  return `${string.slice(0, maxLength + 1)}...`;
+}
+
+function createProductElement(product, type) {
+  const childDiv = document.createElement('div');
+  childDiv.id = type + '-product-'+ product.id;
+  
+  const imageElement = document.createElement('img');
+  imageElement.src = product.image;
+  imageElement.classList.add(type + '-image');
+  imageElement.onclick = (e) => {
+    e.preventDefault();
+    window.location.href = 'details.html?product=' + product.id
+  }
+  
+  const paragraphContainer = document.createElement('div');
+  paragraphContainer.classList.add('paragraph-container');
+  
+  const title = document.createElement('a');
+  title.textContent = cutString(product.title, 50);
+  paragraphContainer.appendChild(title);
+  title.classList.add(type + "-title")
+  title.setAttribute('href', 'details.html?product=' + product.id)
+  
+  const reviewStatus = document.createElement('p');
+  reviewStatus.textContent = product.title;
+  paragraphContainer.appendChild(reviewStatus);
+  reviewStatus.classList.add(type + "-stars")
+  
+  const price = document.createElement('p');
+  price.textContent = `R$: ${normalizePrice(product.price)}`;
+  paragraphContainer.appendChild(price);
+  price.classList.add(type + "-price")
+  
+  childDiv.appendChild(imageElement);
+  childDiv.appendChild(paragraphContainer);
+
+  return childDiv;
+}
+
+function fillProductsDisplay(products, pageNumber) {
+  const productsDisplay = document.querySelectorAll(".single-product-display");
+  const pageOffset = pageNumber * 9
+
+  for (let i = 0; i < productsDisplay.length; i++) {
+    const currentProduct = products[i + pageOffset]
+    const productElement = createProductElement(currentProduct, 'display')
+    productsDisplay[i].append(productElement);
+  }
 }
 
 function addProductsToMostReviewed(products, count) {
@@ -205,40 +257,9 @@ function addProductsToMostReviewed(products, count) {
   for(let i = 0; i < count; i++) {
     const product = products[previousProductCount + i];
 
-    const childDiv = document.createElement('div');
-    childDiv.id = 'review-product-'+ product.id;
-    
-    const imageElement = document.createElement('img');
-    imageElement.src = product.image;
-    imageElement.classList.add('review-image');
-    imageElement.onclick = (e) => {
-      e.preventDefault();
-      window.location.href = 'details.html?product=' + product.id
-    }
-    
-    const paragraphContainer = document.createElement('div');
-    paragraphContainer.classList.add('paragraph-container');
-    
-    const title = document.createElement('a');
-    title.textContent = product.title;
-    paragraphContainer.appendChild(title);
-    title.classList.add("review-title")
-    title.setAttribute('href', 'details.html?product=' + product.id)
-    
-    const reviewStatus = document.createElement('p');
-    reviewStatus.textContent = product.title;
-    paragraphContainer.appendChild(reviewStatus);
-    reviewStatus.classList.add("review-stars")
-    
-    const price = document.createElement('p');
-    price.textContent = `R$: ${product.price}`;
-    paragraphContainer.appendChild(price);
-    price.classList.add("review-price")
-    
-    childDiv.appendChild(imageElement);
-    childDiv.appendChild(paragraphContainer);
+    const productElement = createProductElement(product, 'review')
 
-    reviews.insertBefore(childDiv, reviews.lastElementChild)
+    reviews.insertBefore(productElement, reviews.lastElementChild)
   }
 
 }
@@ -255,7 +276,7 @@ async function setup () {
   setupQuickSearch();
   products = await fetchProducts();
   fillCarousel(products);
-  fillProductsPage(products, 0);
+  fillProductsDisplay(products, 0);
   addProductsToMostReviewed(products, 5);
   setupSeeMoreReviewsButton(products);
 }
