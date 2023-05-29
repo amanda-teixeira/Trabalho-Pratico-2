@@ -12,7 +12,8 @@ module.exports = {
   entry: {
     index: './src/js/index.js',
     home: './src/js/home.js',
-    search: './src/js/search.js'
+    search: './src/js/search.js',
+    details: './src/js/details.js'
   },
   output: {
     filename: "[path][name].bundle.js",
@@ -39,6 +40,11 @@ module.exports = {
       title: 'Search',
       filename: 'search.html',
       template: './src/pages/search/index.html',
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Product Details',
+      filename: 'details.html',
+      template: './src/pages/details/index.html',
     }),
     new LinkTypePlugin({
       "*.css": "text/css",

@@ -141,30 +141,55 @@ async function setupQuickSearch() {
   if (document.getElementById("quick-find-button")) {
     document.getElementById("quick-find-button").onclick = (e) => {
       e.preventDefault();
-      quickSearch()
+      quickSearch();
     }
   }
 }
 
 function updateCarouselItem(children, product) {
   children[1].src = product.image
+
+  children[1].onclick = (e) => {
+    e.preventDefault();
+    console.log('clicked product', product)
+    window.location.href = 'details.html?product=' + product.id
+  }
+
   const texts = children[0].children
   texts[0].innerHTML = product.title
 }
 
-async function fillCarousel(products) {
+function selectRandomItems(arr, quantity) {
+  // Make a copy of the original array
+  const copyArray = [...arr];
+  
+  // Initialize an empty array to store the selected items
+  const selectedItems = [];
+  
+  // Select three random items
+  for (let i = 0; i <= quantity; i++) {
+    // Generate a random index within the range of the remaining items
+    const randomIndex = Math.floor(Math.random() * copyArray.length);
+    
+    // Remove the selected item from the copy array and add it to the selectedItems array
+    const selectedItem = copyArray.splice(randomIndex, 1)[0];
+    selectedItems.push(selectedItem);
+  }
+  
+  return selectedItems;
+}
+
+function fillCarousel(products) {
   console.log(products)
   const carouselItems = document.querySelectorAll(".carousel-item")
 
   console.log(carouselItems)  
 
+  const carouselProducts = selectRandomItems(products, carouselItems.length)
+
   for (let i = 0; i < carouselItems.length; i++) {
-    updateCarouselItem(carouselItems[i].children, products[i])
-
-
-    // carrouselImages[i].src = products[i].image
+    updateCarouselItem(carouselItems[i].children, carouselProducts[i])
   }
-
 }
 
 async function fillProductsPage(products, pageNumber) {
