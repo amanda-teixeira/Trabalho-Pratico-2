@@ -1,0 +1,138 @@
+@import "bootstrap/scss/bootstrap";
+
+a {
+  text-decoration: none;
+}
+
+div {
+  max-width: 100%;
+  max-height: 100%;
+
+  .header {
+    display: flex;
+    min-height: 50px;
+    height: 100px;
+    max-height: 100px;
+    padding-bottom: 4px;
+
+    font-size: 0.75vw;
+
+    .search {
+      display: inline-block;
+      align-self: flex-end;
+    }
+  }
+  .banner {
+    min-height: 150px;
+    max-height: 400px;
+    height: fit-content;
+    padding-bottom: 2px;
+    margin-top: 32px;
+
+    .search-product {
+      height: 100%;
+      padding: 8px;
+      background-color: rgb(211, 211, 211);
+      border: 1px solid #000000;
+      display: flex;
+
+      .center-text {
+        text-align: center;
+      }
+
+      select,
+      input {
+        margin-top: 22px;
+      }
+      .from-to {
+        display: inline-flex;
+        height: fit-content;
+        width: 100%;
+        margin-top: 22px;
+        margin-bottom: 22px;
+
+        .text {
+          display: flex;
+          align-items: center;
+        }
+
+        input {
+          margin-top: 0px;
+          margin-left: 8px;
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+  .products-display {
+    min-height: 450px;
+    max-height: 1200px;
+    height: fit-content;
+    padding-bottom: 8px;
+  }
+  .footer {
+    min-height: 100px;
+    max-height: 160px;
+    height: fit-content;
+  }
+}
+
+img {
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.right-menu {
+  margin: auto;
+  text-align: right;
+  height: 100%;
+  a {
+    padding: 8px;
+  }
+  float: right;
+  .text-column {
+    width: 90%;
+  }
+  .cart {
+    width: 10%;
+    padding-left: 0px;
+    margin: 0px;
+    float: right;
+    vertical-align: bottom;
+
+    .cart-button {
+      display: inline-block;
+      padding-top: 2px;
+      width: auto;
+      height: 100%;
+
+      .cart-button-text {
+        margin: 0;
+        padding: 0;
+        font-size: 0.8rem;
+        height: 30%;
+      }
+
+      .cart-icon {
+        height: 70%;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+.search {
+  input {
+    width: 80%;
+    border-radius: 8px;
+    padding-left: 8px;
+  }
+  button {
+    width: 10%;
+    border-radius: 8px;
+    color: white;
+  }
+}

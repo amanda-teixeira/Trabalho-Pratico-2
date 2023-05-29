@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trabalho Pratico 2 - Fake Store</title>
+</head>
+
+<body>
+    <div class="container-fluid py-2 px-4">
+        <!-- HEADER -->
+        <div class="row header">
+            <div class="col-md-7">
+                <div class="continer-fluid">
+                    <div class="row header">
+                        <div class="col-md-2">
+                            <img src=<%=require("../../assets/images/logo-16-9.jpg")%> />
+                        </div>
+                        <div class="col-md-10">
+                            <div class="row h-50">
+                                <div>Welcome Guest!</div>
+                            </div>
+                            <div class="row h-50 search w-100">
+                                <form class="form-inline h-100">
+                                    <div class="input-group w-100 h-100">
+                                        <input class="form-control-inline mb-2 h-100" type="search"
+                                            placeholder="Search for a Product, Category, Sellers or Brand"
+                                            aria-label="Search">
+                                        <button class="btn btn-dark mb-2 mr-sm-2 h-100 p-0" type="submit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="50%" fill="white"
+                                                class="bi bi-search" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                            </svg>
+                                            <span> Search</span>
+
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-md-5 right-menu">
+                <div class="row h-100">
+                    <div class="h-50">
+                        <nav class="h-100">
+                            <a href="#">Sign in</a> |
+                            <a href="#">Register</a> |
+                            <a href="#">My account</a> |
+                            <a href="#">Track order</a>
+                        </nav>
+                    </div>
+                    <div class="col-md-10 text-column h-50">
+                        <div class="h-50 text" style="margin-bottom: 2px;">Cash on Delivery | 30 Day Return</div>
+                        <div class="h-50 text" style="margin-bottom: 0px;">24/7 Customer Service <b>1800 00 11 22</b>
+                        </div>
+                    </div>
+                    <div class="col-md-2 h-50 cart">
+                        <button class="btn btn-dark cart-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-cart3 cart-icon"
+                                viewBox="0 0 16 16" display="block">
+                                <path
+                                    d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                            </svg>
+                            <div class="cart-button-text">
+                                MY CART
+                            </div>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- SEARCH AND CARROUSEL -->
+        <div class="row banner">
+            <div class="col-md-3">
+                <div class="search-product">
+                    <form class="w-100">
+                        <div class="form-group w-100 h-100">
+                            <h6 class="center-text">Quick Find - Choose product</h6>
+                            <p class="center-text">Find the right product at the right price</p>
+                            <select class="form-control form-select" id="brand-select">
+                            </select>
+                            <select class="form-control form-select" id="category-select">
+                            </select>
+                            <div class="from-to">
+                                <span class="text">$</span>
+                                <input class="form-control" type="number" step="0.1" id="from"
+                                    placeholder="From"></input>
+                                <span class="text">-</span>
+                                <input class="form-control" type="number" step="0.1" id="to" placeholder="To"></input>
+                            </div>
+                            <button class="btn btn-dark mb-2 mr-sm-2 w-100 p-0" id="quick-find-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="50%" fill="white"
+                                    class="bi bi-search" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                </svg>
+                                <span> Search</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="col-md-9">
+                Products Carrousel
+            </div>
+        </div>
+        <!-- Products Display -->
+        <div class="row products-display">
+            <div class="col-md-3">
+                Product column 1
+            </div>
+            <div class="col-md-3">
+                Product column 2
+            </div>
+            <div class="col-md-3">
+                Product column 3
+            </div>
+            <div class="col-md-3">
+                <div class="row reviews">
+                    Most Reviewed Items
+                </div>
+                <div class="row newsletter">
+                    Newsletter
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="row footer">
+            Footer
+        </div>
+        <!-- Copyright -->
+        <div class="row copyright">
+            Copyright
+        </div>
+    </div>
+</body>
+
+</html>
