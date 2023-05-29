@@ -10,6 +10,7 @@ const LinkTypePlugin =
 module.exports = {
   mode: "development",
   entry: {
+    index: './src/js/index.js',
     home: './src/js/home.js',
     search: './src/js/search.js'
   },
@@ -24,6 +25,11 @@ module.exports = {
     hot: true,
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Index',
+      filename: 'index.html',
+      template: './src/pages/index.html',
+    }),
     new HtmlWebpackPlugin({
       title: 'Home',
       filename: 'home.html',

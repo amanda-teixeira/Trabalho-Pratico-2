@@ -1,6 +1,7 @@
 // Import our custom CSS
 import "../scss/styles.scss";
 
+
 import { fetchProductsInCategory, fetchProducts } from './api'
 
 async function handleSearch({ category, brand, minPrice, maxPrice }) {

@@ -1,7 +1,7 @@
 // Import our custom CSS
 import "../scss/styles.scss";
 
-import { fetchCategories } from "./api";
+import { fetchCategories, fetchProducts } from "./api";
 
 const brandCategoriesMap = new Map([
   ["Apple", ["Electronics"]],
@@ -21,6 +21,9 @@ const brandCategoriesMap = new Map([
   ["Prada", ["Men's Clothing", "Women's Clothing"]],
   ["Victoria's Secret", ["Women's Clothing"]]
 ]);
+
+let products = []
+
 function firstLetterUpperCase(text) {
   return text.toLowerCase().replace(/(?:^|\s)\S/g, function (char) {
     return char.toUpperCase();
@@ -143,19 +146,41 @@ async function setupQuickSearch() {
   }
 }
 
-async function fillCarrousel() {
-  
+function updateCarouselItem(children, product) {
+  children[1].src = product.image
+  const texts = children[0].children
+  texts[0].innerHTML = product.title
 }
 
-async function fillProductsPage(pageNumber) {
+async function fillCarousel(products) {
+  console.log(products)
+  const carouselItems = document.querySelectorAll(".carousel-item")
+
+  console.log(carouselItems)  
+
+  for (let i = 0; i < carouselItems.length; i++) {
+    updateCarouselItem(carouselItems[i].children, products[i])
+
+
+    // carrouselImages[i].src = products[i].image
+  }
+
+}
+
+async function fillProductsPage(products, pageNumber) {
 
 }
 
 async function setup () {
   setupQuickSearch();
-  fillCarrousel();
-  fillProductsPage(0);
+  products = await fetchProducts();
+  fillCarousel(products);
+  fillProductsPage(products, 0);
 }
 
 
-setup()
+console.log('teste', window.location.pathname);
+
+if (window.location.pathname === '/home.html') {
+  setup()
+}
