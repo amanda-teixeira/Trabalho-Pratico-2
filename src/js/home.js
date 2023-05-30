@@ -32,17 +32,17 @@ function firstLetterUpperCase(text) {
 
 async function fillCategories (categories)  {
 
-  const select = document.getElementById("category-select")
+  const select = document.getElementById("category-select");
 
   // Removing previous options
   for (let i = select.options.length - 1; i >= 0 ; i--) {
-    select.remove(i)
+    select.remove(i);
   }
 
   // Setting All
   const option = document.createElement("option");
-  option.text = "All"
-  option.value = "all"
+  option.text = "All";
+  option.value = "all";
   select.appendChild(option);
 
   // Setting categories
@@ -56,13 +56,13 @@ async function fillCategories (categories)  {
 }
 
 async function fillBrand () {
-  const select = document.getElementById("brand-select")
-  const brands = Array.from(brandCategoriesMap.keys())
+  const select = document.getElementById("brand-select");
+  const brands = Array.from(brandCategoriesMap.keys());
 
   // Setting All
   const option = document.createElement("option");
-  option.text = "All"
-  option.value = "all"
+  option.text = "All";
+  option.value = "all";
   select.appendChild(option);
 
   // Setting brands
@@ -75,45 +75,45 @@ async function fillBrand () {
 }
 
 async function quickSearch() {
-  const brand = document.getElementById("brand-select")?.value
+  const brand = document.getElementById("brand-select")?.value;
 
-  const category = document.getElementById("category-select")?.value
+  const category = document.getElementById("category-select")?.value;
 
-  const minPrice = document.getElementById("from")?.value
-  const maxPrice = document.getElementById("to")?.value
+  const minPrice = document.getElementById("from")?.value;
+  const maxPrice = document.getElementById("to")?.value;
 
   if (minPrice > maxPrice) {
     console.log('error min price higher than max', minPrice, maxPrice);
-    alert("Preço mínimo não pode ser maior que preço máximo")
+    alert("Preço mínimo não pode ser maior que preço máximo");
     return
   }
 
-  await redirectToSearch({ category, brand, minPrice, maxPrice })
+  await redirectToSearch({ category, brand, minPrice, maxPrice });
 }
 
 async function redirectToSearch({ category, brand, minPrice, maxPrice, text}) {
-  let queryParams = ''
+  let queryParams = '';
 
   if (category) {
-    queryParams += `category=${encodeURIComponent(category)}&`
+    queryParams += `category=${encodeURIComponent(category)}&`;
   }
   if (brand) {
-    queryParams += `brand=${encodeURIComponent(brand)}&`
+    queryParams += `brand=${encodeURIComponent(brand)}&`;
   }
   if (minPrice) {
-    queryParams += `minPrice=${encodeURIComponent(minPrice)}&`
+    queryParams += `minPrice=${encodeURIComponent(minPrice)}&`;
   }
   if (maxPrice) {
-    queryParams += `maxPrice=${encodeURIComponent(maxPrice)}&`
+    queryParams += `maxPrice=${encodeURIComponent(maxPrice)}&`;
   }
   if (text) {
-    queryParams += `text=${encodeURIComponent(text)}&`
+    queryParams += `text=${encodeURIComponent(text)}&`;
   }
   
   // Remove trailing '&'
   queryParams = queryParams.slice(0, -1);
 
-  window.location.href = 'search.html?' + queryParams
+  window.location.href = 'search.html?' + queryParams;
 }
 
 
@@ -123,13 +123,13 @@ async function setupQuickSearch() {
   fillCategories(categories);
   fillBrand();
 
-  const brandSelect = document.getElementById("brand-select")
+  const brandSelect = document.getElementById("brand-select");
   brandSelect.onchange = async (e) => {
     const selectedOption = brandSelect[brandSelect.selectedIndex];
 
-    const availableCategories = brandCategoriesMap.get(selectedOption.value)
+    const availableCategories = brandCategoriesMap.get(selectedOption.value);
     if (selectedOption.value === "all") {
-      fillCategories(categories)
+      fillCategories(categories);
     } else {
       fillCategories(availableCategories);
     }
@@ -145,15 +145,15 @@ async function setupQuickSearch() {
 }
 
 function updateCarouselItem(children, product) {
-  children[1].src = product.image
+  children[1].src = product.image;
 
   children[1].onclick = (e) => {
     e.preventDefault();
-    window.location.href = 'details.html?product=' + product.id
+    window.location.href = 'details.html?product=' + product.id;
   }
 
-  const texts = children[0].children
-  texts[0].innerHTML = product.title
+  const texts = children[0].children;
+  texts[0].innerHTML = product.title;
 }
 
 function selectRandomItems(arr, quantity) {
@@ -231,7 +231,7 @@ function displayStarCounter(rating, starCounter, ratingCounter) {
   }
 
   const ratingCounterElement = document.createElement("span");
-  ratingCounterElement.textContent = ` (${ratingCounter})`
+  ratingCounterElement.textContent = ` (${ratingCounter})`;
   
   container.appendChild(ratingCounterElement);
   starCounter.appendChild(container);
@@ -248,7 +248,7 @@ function createProductElement(product, type) {
   imageElement.classList.add(type + '-image');
   imageElement.onclick = (e) => {
     e.preventDefault();
-    window.location.href = 'details.html?product=' + product.id
+    window.location.href = 'details.html?product=' + product.id;
   }
   
   const paragraphContainer = document.createElement('div');
@@ -257,20 +257,18 @@ function createProductElement(product, type) {
   const title = document.createElement('a');
   title.textContent = cutString(product.title, 50);
   paragraphContainer.appendChild(title);
-  title.classList.add(type + "-title")
-  title.setAttribute('href', 'details.html?product=' + product.id)
-  
-  console.log(product)
+  title.classList.add(type + "-title");
+  title.setAttribute('href', 'details.html?product=' + product.id);
 
   const reviewStatus = document.createElement('div');
-  displayStarCounter(product.rating.rate, reviewStatus, product.rating.count)
+  displayStarCounter(product.rating.rate, reviewStatus, product.rating.count);
   paragraphContainer.appendChild(reviewStatus);
   reviewStatus.classList.add(type + "-stars");
   
   const price = document.createElement('p');
   price.textContent = `R$: ${normalizePrice(product.price)}`;
   paragraphContainer.appendChild(price);
-  price.classList.add(type + "-price")
+  price.classList.add(type + "-price");
   
   childDiv.appendChild(imageElement);
   childDiv.appendChild(paragraphContainer);
@@ -280,11 +278,11 @@ function createProductElement(product, type) {
 
 function fillProductsDisplay(products, pageNumber) {
   const productsDisplay = document.querySelectorAll(".single-product-display");
-  const pageOffset = pageNumber * 9
+  const pageOffset = pageNumber * 9;
 
   for (let i = 0; i < productsDisplay.length; i++) {
-    const currentProduct = products[i + pageOffset]
-    const productElement = createProductElement(currentProduct, 'display')
+    const currentProduct = products[i + pageOffset];
+    const productElement = createProductElement(currentProduct, 'display');
     productsDisplay[i].append(productElement);
   }
 }
@@ -294,14 +292,14 @@ function addProductsToMostReviewed(products, count) {
 
   const reviews = document.getElementById("reviews");
 
-  const previousProductCount = reviews.childElementCount - 1 // -1 because one of the child is the see more button
+  const previousProductCount = reviews.childElementCount - 1; // -1 because one of the child is the see more button
 
   for(let i = 0; i < count; i++) {
     const product = products[previousProductCount + i];
 
-    const productElement = createProductElement(product, 'review')
+    const productElement = createProductElement(product, 'review');
 
-    reviews.insertBefore(productElement, reviews.lastElementChild)
+    reviews.insertBefore(productElement, reviews.lastElementChild);
   }
 
 }
@@ -310,7 +308,7 @@ function setupSeeMoreReviewsButton(products) {
   const button = document.getElementById("see-more-reviews");
 
   button.onclick = () => {
-    addProductsToMostReviewed(products, 2)
+    addProductsToMostReviewed(products, 2);
   }
 }
 
@@ -324,5 +322,5 @@ async function setup () {
 }
 
 if (window.location.pathname === '/home.html') {
-  setup()
+  setup();
 }
