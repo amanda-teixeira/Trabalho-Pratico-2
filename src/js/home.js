@@ -199,6 +199,46 @@ function cutString(string, maxLength) {
   return `${string.slice(0, maxLength + 1)}...`;
 }
 
+function displayStarCounter(rating, starCounter, ratingCounter) {
+  starCounter.innerHTML = ''; // Clear previous stars
+
+  const filledStars = Math.floor(rating); // Number of filled stars (integer part)
+  const hasHalfStar = rating % 1 >= 0.5; // Check if there is a half star
+  const emptyStars = 5 - filledStars - hasHalfStar; // Number of empty stars
+
+  const container = document.createElement('div');
+  container.className = 'star-container';
+
+  // Add filled stars
+  for (let i = 0; i < filledStars; i++) {
+    const filledStar = document.createElement('img');
+    filledStar.src = require('../assets/icons/star-fill.svg');
+    container.appendChild(filledStar);
+  }
+
+  // Add half star
+  if (hasHalfStar) {
+    const halfStar = document.createElement('img');
+    halfStar.src = require('../assets/icons/star-half.svg');
+    container.appendChild(halfStar);
+  }
+
+  // Add empty stars
+  for (let i = 0; i < emptyStars; i++) {
+    const emptyStar = document.createElement('img');
+    emptyStar.src = require('../assets/icons/star-empty.svg');
+    container.appendChild(emptyStar);
+  }
+
+  const ratingCounterElement = document.createElement("span");
+  ratingCounterElement.textContent = ` (${ratingCounter})`
+  
+  container.appendChild(ratingCounterElement);
+  starCounter.appendChild(container);
+
+}
+
+
 function createProductElement(product, type) {
   const childDiv = document.createElement('div');
   childDiv.id = type + '-product-'+ product.id;
@@ -220,10 +260,12 @@ function createProductElement(product, type) {
   title.classList.add(type + "-title")
   title.setAttribute('href', 'details.html?product=' + product.id)
   
-  const reviewStatus = document.createElement('p');
-  reviewStatus.textContent = product.title;
+  console.log(product)
+
+  const reviewStatus = document.createElement('div');
+  displayStarCounter(product.rating.rate, reviewStatus, product.rating.count)
   paragraphContainer.appendChild(reviewStatus);
-  reviewStatus.classList.add(type + "-stars")
+  reviewStatus.classList.add(type + "-stars");
   
   const price = document.createElement('p');
   price.textContent = `R$: ${normalizePrice(product.price)}`;
