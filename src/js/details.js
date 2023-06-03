@@ -79,7 +79,7 @@ function displayProductDetails(product) {
     price.classList.add("product-details-price");
     
     const description = document.createElement('p');
-    description.textContent = product.description;
+    description.textContent = product.description.replace(/. \//g, ".\n");
     paragraphContainer.appendChild(description);
     description.classList.add("product-details-description");
   

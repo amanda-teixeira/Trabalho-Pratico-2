@@ -182,7 +182,8 @@ img {
 }
 
 .review-price,
-.display-price {
+.display-price,
+.product-details-price {
   font-weight: bold;
 }
 
@@ -247,13 +248,12 @@ img {
 .details-paragraph-container {
 }
 
-.product-details-price {
-}
-
 .product-details-stars {
 }
 
 .product-details-description {
+  font-weight: 500;
+  white-space: pre-line;
 }
 
 @media screen and (max-width: 600px) {
