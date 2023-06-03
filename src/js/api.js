@@ -33,4 +33,17 @@ const fetchProducts = async () => {
     }
 }
 
-export { fetchCategories, fetchProductsInCategory, fetchProducts }
+const fetchProductById = async (productId) => {
+    try {
+        const response = await fetch(`${fakeStoreUrl}/products/${productId}`)
+
+        const product = await response.json()
+
+        return product
+    } catch (error) {
+        console.log(error)
+        return null
+    }
+}
+
+export { fetchCategories, fetchProductsInCategory, fetchProducts, fetchProductById }

@@ -15,7 +15,7 @@ div {
     max-height: 100px;
     padding-bottom: 4px;
 
-    font-size: 0.75vw;
+    font-size: max(0.75vw, 11px);
 
     .search {
       display: inline-block;
@@ -211,13 +211,44 @@ img {
 }
 
 .no-products {
-  font-size: 1vw;
+  font-size: max(1vw, 22px);
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+#product-details {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.product-details-title {
+  font-size: max(1vw, 22px);
+  padding-top: 16px;
+}
+
+.product-details-image {
+  max-height: 50vh;
+  width: auto;
+}
+
+.details-paragraph-container {
+}
+
+.product-details-price {
+}
+
+.product-details-stars {
+}
+
+.product-details-description {
 }
 
 @media screen and (max-width: 600px) {
