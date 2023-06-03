@@ -3,22 +3,7 @@ import "../scss/styles.scss";
 
 import { fetchCategories, fetchProducts } from "./api";
 
-const brandCategoriesMap = new Map([
-  ["Fjallraven", ["Men's Clothing"]],
-  ["Samsung", ["Electronics"]],
-  ["John Hardy", ["Jewelry"]],
-  ["Owl", ["Jewelry"]],
-  ["SanDisk", ["Electronics"]],
-  ["WD", ["Electronics"]],
-  ["Acer", ["Electronics"]],
-  ["BIYLACLESEN", ["Women's Clothing"]],
-  ["Lock and Love ", ["Women's Clothing"]],
-  ["MBJ", ["Women's Clothing"]],
-  ["Opna", ["Women's Clothing"]],
-  ["DANVOUY", ["Women's Clothing"]]
-]);
-
-let products = []
+import { redirectToSearch } from "./utils"
 
 function firstLetterUpperCase(text) {
   return text.toLowerCase().replace(/(?:^|\s)\S/g, function (char) {
@@ -50,28 +35,7 @@ async function fillCategories (categories)  {
   }
   
 }
-
-async function fillBrand () {
-  const select = document.getElementById("brand-select");
-  const brands = Array.from(brandCategoriesMap.keys());
-
-  // Setting All
-  const option = document.createElement("option");
-  option.text = "All";
-  option.value = "all";
-  select.appendChild(option);
-
-  // Setting brands
-  for (let i = 0; i < brands.length; i++) {
-    const option = document.createElement("option");
-    option.text = [brands[i]];
-    option.value = brands[i];
-    select.appendChild(option);
-  }
-}
-
 async function quickSearch() {
-  const brand = document.getElementById("brand-select")?.value;
 
   const category = document.getElementById("category-select")?.value;
 
@@ -84,52 +48,16 @@ async function quickSearch() {
     return
   }
 
-  await redirectToSearch({ category, brand, minPrice, maxPrice });
+  await redirectToSearch({ category, minPrice, maxPrice });
 }
 
-async function redirectToSearch({ category, brand, minPrice, maxPrice, text}) {
-  let queryParams = '';
 
-  if (category) {
-    queryParams += `category=${encodeURIComponent(category)}&`;
-  }
-  if (brand) {
-    queryParams += `brand=${encodeURIComponent(brand)}&`;
-  }
-  if (minPrice) {
-    queryParams += `minPrice=${encodeURIComponent(minPrice)}&`;
-  }
-  if (maxPrice) {
-    queryParams += `maxPrice=${encodeURIComponent(maxPrice)}&`;
-  }
-  if (text) {
-    queryParams += `text=${encodeURIComponent(text)}&`;
-  }
-  
-  // Remove trailing '&'
-  queryParams = queryParams.slice(0, -1);
-
-  window.location.href = './search.html?' + queryParams;
-}
 
 
 async function setupQuickSearch() {
   
   const categories = await fetchCategories();
   fillCategories(categories);
-  fillBrand();
-
-  const brandSelect = document.getElementById("brand-select");
-  brandSelect.onchange = async (e) => {
-    const selectedOption = brandSelect[brandSelect.selectedIndex];
-
-    const availableCategories = brandCategoriesMap.get(selectedOption.value);
-    if (selectedOption.value === "all") {
-      fillCategories(categories);
-    } else {
-      fillCategories(availableCategories);
-    }
-};
 
   // Setting search button
   if (document.getElementById("quick-find-button")) {
@@ -325,7 +253,8 @@ function setupNewsletter() {
 
 async function setup () {
   setupQuickSearch();
-  products = await fetchProducts();
+  const { products, current_page: page, total_pages: pageCount } = await fetchProducts();
+  console.log('setup products', products, page, pageCount)
   fillCarousel(products);
   fillProductsDisplay(products, 0);
   addProductsToMostReviewed(products, 5);

@@ -2,29 +2,28 @@
 import "../scss/styles.scss";
 
 
-import { fetchProductsInCategory, fetchProducts } from './api'
+import { fetchProductsInCategory, fetchProducts, fetchProductsByText } from './api'
 
-async function handleSearch({ category, brand, minPrice, maxPrice, text }) {
+import { redirectToSearch } from "./utils";
+
+async function handleSearch({ category, minPrice, maxPrice, text, page }) {
     try {
-      const products = category && category !== 'all' ? await fetchProductsInCategory(category) : await fetchProducts()
+      if (text && text !== "") {
+        const data = await fetchProductsByText(text)
 
-      const filteredProducts = products.filter((product) => {
-        if(minPrice && parseFloat(product.price) < parseFloat(minPrice)) return false
-        if (maxPrice && parseFloat(product.price) > parseFloat(maxPrice)) return false
+        return data
+      } else {
+        const data = category && category !== 'all' ? await fetchProductsInCategory(category, 10, page) : await fetchProducts(10, page)
 
-        if (brand && brand !== 'all') {
-          if (!product.title.toLowerCase().includes(brand.toLowerCase())) return false
-        }
-
-        if (text) {
-          if (!product.title.toLowerCase().includes(text.toLowerCase())) return false
-        }
-
-        return true
-
-      })
-
-      return filteredProducts
+        data.products = data.products.filter((product) => {
+          if(minPrice && parseFloat(product.price) < parseFloat(minPrice)) return false
+          if (maxPrice && parseFloat(product.price) > parseFloat(maxPrice)) return false
+  
+          return true
+        })
+  
+        return data
+      }
     } catch (error) {
       console.log(error);
     }
@@ -123,11 +122,12 @@ function createProductElement(product) {
 
 function fillProductsDisplay(products) {
   const productsDisplay = document.getElementById("products-search-result");
+  const pageControl = document.getElementById("page-control");
 
   for (let i = 0; i < products.length; i++) {
     const currentProduct = products[i];
       const productElement = createProductElement(currentProduct);
-      productsDisplay.append(productElement);
+      productsDisplay.insertBefore(productElement, pageControl);
   }
 }
 
@@ -145,6 +145,34 @@ function showNoProductsFound() {
   productsDisplay.appendChild(noProductsDiv);
 }
 
+async function showNextPageButton({category, brand, minPrice, maxPrice, text, page}) {
+  const pageControl = document.getElementById("page-control")
+  const nextPageButton = document.createElement("button")
+
+  nextPageButton.className = "next-page-button btn btn-dark"
+  nextPageButton.textContent = "Next Page"
+
+  nextPageButton.onclick = () => {
+    redirectToSearch({category, brand, minPrice, maxPrice, text, page: page + 1})
+  }
+
+  pageControl.appendChild(nextPageButton);
+}
+
+async function showPreviousPageButton({category, brand, minPrice, maxPrice, text, page}) {
+  const pageControl = document.getElementById("page-control")
+  const previousPageButton = document.createElement("button")
+
+  previousPageButton.className = "previous-page-button btn btn-dark"
+  previousPageButton.textContent = "Previous Page"
+
+  previousPageButton.onclick = () => {
+    redirectToSearch({category, brand, minPrice, maxPrice, text, page: page - 1})
+  }
+
+  pageControl.appendChild(previousPageButton);
+}
+
 async function setup() {
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get('category');
@@ -152,11 +180,21 @@ async function setup() {
   const minPrice = urlParams.get('minPrice');
   const maxPrice = urlParams.get('maxPrice');
   const text = urlParams.get('text');
+  const page = Number(urlParams.get('page') || 1);
 
-  const products = await handleSearch({category, brand, minPrice, maxPrice, text});
+  const { products, total_pages: pageCount } = await handleSearch({category, brand, minPrice, maxPrice, text, page});
 
   if (products.length > 0) {
     fillProductsDisplay(products);
+    
+    if (page > 1) {
+      showPreviousPageButton({category, brand, minPrice, maxPrice, text, page})
+    }
+
+    if (pageCount > page) {
+      showNextPageButton({category, brand, minPrice, maxPrice, text, page})
+    }
+
   } else {
     showNoProductsFound();
   }

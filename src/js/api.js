@@ -1,4 +1,4 @@
-const fakeStoreUrl = "https://fakestoreapi.com"
+const fakeStoreUrl = "https://diwserver.vps.webdock.cloud"
 
 const fetchCategories = async () => {
     try {
@@ -11,22 +11,41 @@ const fetchCategories = async () => {
     }
 }
 
-const fetchProductsInCategory = async (category) => {
+const fetchProductsByText = async (text) => {
     try {
-        const response = await fetch(`${fakeStoreUrl}/products/category/${category.toLowerCase()}`)
+        const response = await fetch(`${fakeStoreUrl}/products/search?query=${text}`)
+
+        const data = await response.json()
+
+        return data
+    } catch (error) {
+        return []
+    }
+}
+
+const fetchProductsInCategory = async (category, quantity = 20, page = 1) => {
+    try {
+        console.log('quantity, page', quantity, page)
+        const response = await fetch(`${fakeStoreUrl}/products/category/${category}?page=${page}&page_items=${quantity}`)
         
-        return response.json()
+        const data = await response.json()
+
+        console.log('data.products.length',data.products.length)
+
+        return data
     } catch (error) {
         console.log(error)
         return []
     }
 }
 
-const fetchProducts = async () => {
+const fetchProducts = async (quantity = 20, page = 1) => {
     try {
-        const response = await fetch(`${fakeStoreUrl}/products`)
+        const response = await fetch(`${fakeStoreUrl}/products?page=${page}&page_items=${quantity}`)
 
-        return response.json()
+        const data = await response.json()
+
+        return data
     } catch (error) {
         console.log(error)
         return []
@@ -46,4 +65,4 @@ const fetchProductById = async (productId) => {
     }
 }
 
-export { fetchCategories, fetchProductsInCategory, fetchProducts, fetchProductById }
+export { fetchCategories, fetchProductsInCategory, fetchProducts, fetchProductById, fetchProductsByText }
