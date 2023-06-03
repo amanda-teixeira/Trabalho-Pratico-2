@@ -93,7 +93,7 @@ function createProductElement(product) {
   imageElement.classList.add('search-product-display-image');
   imageElement.onclick = (e) => {
     e.preventDefault();
-    window.location.href = 'details.html?product=' + product.id;
+    window.location.href = './details.html?product=' + product.id;
   }
   
   const paragraphContainer = document.createElement('div');
@@ -103,7 +103,7 @@ function createProductElement(product) {
   title.textContent = cutString(product.title, 50);
   paragraphContainer.appendChild(title);
   title.classList.add("search-product-display-title");
-  title.setAttribute('href', 'details.html?product=' + product.id);
+  title.setAttribute('href', './details.html?product=' + product.id);
 
   const reviewStatus = document.createElement('div');
   displayStarCounter(product.rating.rate, reviewStatus, product.rating.count);
@@ -140,7 +140,7 @@ function showNoProductsFound() {
   title.textContent = "No products found with filter, click to return to Home page";
   noProductsDiv.appendChild(title);
   title.classList.add("no-products-title");
-  title.setAttribute('href', 'home.html');
+  title.setAttribute('href', './home.html');
 
   productsDisplay.appendChild(noProductsDiv);
 }

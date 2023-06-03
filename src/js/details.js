@@ -96,7 +96,7 @@ async function setup () {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('product');
 
-    if(!productId) return window.location.href = '/home.html'
+    if(!productId) return window.location.href = './home.html'
 
     const product = await fetchProductById(productId);
 
@@ -107,6 +107,6 @@ async function setup () {
     }
 }
   
-if (window.location.pathname === '/details.html') {
+if (window.location.pathname.includes('/details.html')) {
     setup();
 }

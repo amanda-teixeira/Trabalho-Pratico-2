@@ -21,7 +21,7 @@
                 <div class="continer-fluid">
                     <div class="row header">
                         <div class="col-md-2">
-                            <a href="/home.html">
+                            <a href="./home.html">
                                 <img src=<%=require("../../assets/images/logo-16-9.jpg")%> />
                             </a>
                         </div>
@@ -104,7 +104,7 @@
         function redirectToSearch(event) {
             event.preventDefault()
             const input = document.getElementById("search-input")?.value;
-            const redirect = input ? 'search.html?text=' + encodeURIComponent(input) : 'search.html'
+            const redirect = input ? './search.html?text=' + encodeURIComponent(input) : './search.html'
 
             window.location.href = redirect;
         }

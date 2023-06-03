@@ -113,7 +113,7 @@ async function redirectToSearch({ category, brand, minPrice, maxPrice, text}) {
   // Remove trailing '&'
   queryParams = queryParams.slice(0, -1);
 
-  window.location.href = 'search.html?' + queryParams;
+  window.location.href = './search.html?' + queryParams;
 }
 
 
@@ -149,7 +149,7 @@ function updateCarouselItem(children, product) {
 
   children[1].onclick = (e) => {
     e.preventDefault();
-    window.location.href = 'details.html?product=' + product.id;
+    window.location.href = './details.html?product=' + product.id;
   }
 
   const texts = children[0].children;
@@ -247,7 +247,7 @@ function createProductElement(product, type) {
   imageElement.classList.add(type + '-image');
   imageElement.onclick = (e) => {
     e.preventDefault();
-    window.location.href = 'details.html?product=' + product.id;
+    window.location.href = './details.html?product=' + product.id;
   }
   
   const paragraphContainer = document.createElement('div');
@@ -257,7 +257,7 @@ function createProductElement(product, type) {
   title.textContent = cutString(product.title, 50);
   paragraphContainer.appendChild(title);
   title.classList.add(type + "-title");
-  title.setAttribute('href', 'details.html?product=' + product.id);
+  title.setAttribute('href', './details.html?product=' + product.id);
 
   const reviewStatus = document.createElement('div');
   displayStarCounter(product.rating.rate, reviewStatus, product.rating.count);
@@ -320,6 +320,6 @@ async function setup () {
   setupSeeMoreReviewsButton(products);
 }
 
-if (window.location.pathname === '/home.html') {
+if (window.location.pathname.includes('/home.html')) {
   setup();
 }
