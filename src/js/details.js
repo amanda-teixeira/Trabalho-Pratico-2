@@ -51,6 +51,22 @@ function normalizePrice(price) {
     return parseFloat(price).toFixed(2).replace('.', ',');
 }
 
+function removeHtmlTags(text) {
+    // Replace <br> tags with newline character
+    text = text.replace(/<br\s*\/?>/gi, '\n');
+    
+    // Remove other HTML tags
+    text = text.replace(/<[^>]+>/g, '');
+    
+    // Capitalize first letter after each line break
+    text = text.replace(/\n(.)/g, function(match, group1) {
+        return '\n' + group1.toUpperCase();
+    });
+  
+
+    return text;
+}
+
 function displayProductDetails(product) {
     console.log(product);
     const parent = document.getElementById("product-details");
@@ -78,8 +94,13 @@ function displayProductDetails(product) {
     paragraphContainer.appendChild(price);
     price.classList.add("product-details-price");
     
-    const description = document.createElement('p');
-    description.textContent = product.description.replace(/. \//g, ".\n");
+    // const description = document.createElement('p');
+    // description.textContent = removeHtmlTags(product.description);
+    // paragraphContainer.appendChild(description);
+    // description.classList.add("product-details-description");
+
+    const description = document.createElement('div');
+    description.innerHTML = product.description;
     paragraphContainer.appendChild(description);
     description.classList.add("product-details-description");
   
