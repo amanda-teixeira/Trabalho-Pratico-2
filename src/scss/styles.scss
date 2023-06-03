@@ -18,6 +18,10 @@ div {
     .search {
       display: inline-block;
       align-self: flex-end;
+
+      button {
+        min-width: fit-content;
+      }
     }
   }
   .banner {
