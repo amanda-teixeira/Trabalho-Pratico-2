@@ -307,6 +307,22 @@ function setupSeeMoreReviewsButton(products) {
   }
 }
 
+function setupNewsletter() {
+  const button = document.getElementById("submit-newsletter");
+  const input = document.getElementById("newsletter-input");
+  const emailRegex = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/
+
+  button.onclick = (event) => {
+    event.preventDefault();
+    if (input.value && emailRegex.test(input.value)) {
+      input.value = ""
+      alert("Obrigado por se registrar no nosso newsletter.");
+    } else {
+      alert("Email inválido.")
+    }
+  }
+}
+
 async function setup () {
   setupQuickSearch();
   products = await fetchProducts();
@@ -314,6 +330,7 @@ async function setup () {
   fillProductsDisplay(products, 0);
   addProductsToMostReviewed(products, 5);
   setupSeeMoreReviewsButton(products);
+  setupNewsletter();
 }
 
 if (window.location.pathname.includes('/home')) {

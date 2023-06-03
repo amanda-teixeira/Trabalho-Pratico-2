@@ -250,6 +250,35 @@ img {
   white-space: pre-line;
 }
 
+.newsletter {
+  padding: 8px;
+  background-color: rgb(211, 211, 211);
+  border: 1px solid #000000;
+
+  p,
+  h3 {
+    margin-bottom: 0px;
+  }
+
+  select,
+  input {
+    margin-top: 2px;
+  }
+
+  .button-container {
+    padding: 0;
+  }
+
+  button {
+    width: 20%;
+    margin-top: 2px;
+    float: right;
+    white-space: nowrap;
+    text-align: center;
+    padding: 2px;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .search-product-display {
     width: 100%;
