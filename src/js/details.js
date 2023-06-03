@@ -107,6 +107,6 @@ async function setup () {
     }
 }
   
-if (window.location.pathname.includes('/details.html')) {
+if (window.location.pathname.includes('/details')) {
     setup();
 }

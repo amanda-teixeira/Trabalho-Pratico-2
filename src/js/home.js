@@ -320,6 +320,6 @@ async function setup () {
   setupSeeMoreReviewsButton(products);
 }
 
-if (window.location.pathname.includes('/home.html')) {
+if (window.location.pathname.includes('/home')) {
   setup();
 }
