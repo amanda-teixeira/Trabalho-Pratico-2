@@ -186,3 +186,32 @@ img {
     color: white;
   }
 }
+
+#products-search-result {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.search-product-display-image {
+  width: 100%;
+  height: auto;
+}
+
+.search-product-display {
+  width: 200px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+@media screen and (max-width: 600px) {
+  .search-product-display {
+    width: 100%;
+  }
+}

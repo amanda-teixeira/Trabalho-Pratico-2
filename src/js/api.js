@@ -13,7 +13,7 @@ const fetchCategories = async () => {
 
 const fetchProductsInCategory = async (category) => {
     try {
-        const response = await fetch(`${fakeStoreUrl}/products/category/${category}`)
+        const response = await fetch(`${fakeStoreUrl}/products/category/${category.toLowerCase()}`)
         
         return response.json()
     } catch (error) {
