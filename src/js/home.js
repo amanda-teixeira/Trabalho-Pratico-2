@@ -195,7 +195,6 @@ function cutString(string, maxLength) {
     return string;
   }
   
-  console.log("string", string, typeof string)
   return `${string.slice(0, maxLength + 1)}...`;
 }
 

@@ -40,7 +40,6 @@ function cutString(string, maxLength) {
     return string;
   }
   
-  console.log("string", string, typeof string)
   return `${string.slice(0, maxLength + 1)}...`;
 }
 
@@ -85,7 +84,6 @@ function displayStarCounter(rating, starCounter, ratingCounter) {
 
 
 function createProductElement(product) {
-  console.log(product)
   const childDiv = document.createElement('div');
   childDiv.id = '-product-'+ product.id;
   childDiv.className = 'search-product-display';
@@ -148,10 +146,8 @@ async function setup() {
   const products = await handleSearch({category, brand, minPrice, maxPrice, text});
 
   if (products.length > 0) {
-    console.log('found products', products)
     fillProductsDisplay(products);
   } else {
-    console.log('no products found')
     showNoProductsFound()
   }
 
