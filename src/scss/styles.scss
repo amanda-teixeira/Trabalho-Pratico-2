@@ -81,13 +81,19 @@ div {
     min-height: 450px;
     height: fit-content;
     padding-bottom: 8px;
-    margin-top: 48px;
   }
   .footer {
     min-height: 100px;
     max-height: 160px;
     height: fit-content;
   }
+}
+
+.separator {
+  background-color: rgba(128, 128, 128, 0.5);
+  height: 1px;
+  width: 100%;
+  margin: 12px auto;
 }
 
 img {
