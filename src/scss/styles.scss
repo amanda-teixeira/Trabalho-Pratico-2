@@ -15,6 +15,10 @@ div {
 
     font-size: max(0.75vw, 11px);
 
+    div {
+      margin-bottom: 2px;
+    }
+
     .search {
       display: inline-block;
       input {
