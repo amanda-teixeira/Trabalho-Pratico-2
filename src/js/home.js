@@ -4,22 +4,18 @@ import "../scss/styles.scss";
 import { fetchCategories, fetchProducts } from "./api";
 
 const brandCategoriesMap = new Map([
-  ["Apple", ["Electronics"]],
+  ["Fjallraven", ["Men's Clothing"]],
   ["Samsung", ["Electronics"]],
-  ["LG", ["Electronics"]],
-  ["Casio", ["Electronics", "Jewelry"]],
-  ["Tiffany & Co.", ["Jewelry"]],
-  ["Pandora", ["Jewelry"]],
-  ["Cartier", ["Jewelry"]],
-  ["Rolex", ["Jewelry"]],
-  ["H&M", ["Men's Clothing", "Women's Clothing"]],
-  ["Zara", ["Men's Clothing", "Women's Clothing"]],
-  ["Nike", ["Men's Clothing", "Women's Clothing"]],
-  ["Adidas", ["Men's Clothing", "Women's Clothing"]],
-  ["Levi's", ["Men's Clothing", "Women's Clothing"]],
-  ["Gucci", ["Men's Clothing", "Women's Clothing"]],
-  ["Prada", ["Men's Clothing", "Women's Clothing"]],
-  ["Victoria's Secret", ["Women's Clothing"]]
+  ["John Hardy", ["Jewelry"]],
+  ["Owl", ["Jewelry"]],
+  ["SanDisk", ["Electronics"]],
+  ["WD", ["Electronics"]],
+  ["Acer", ["Electronics"]],
+  ["BIYLACLESEN", ["Women's Clothing"]],
+  ["Lock and Love ", ["Women's Clothing"]],
+  ["MBJ", ["Women's Clothing"]],
+  ["Opna", ["Women's Clothing"]],
+  ["DANVOUY", ["Women's Clothing"]]
 ]);
 
 let products = []
