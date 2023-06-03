@@ -2,7 +2,9 @@
 
 O projeto encontra-se publicado no site <https://amanda-teixeira.github.io/Trabalho-Pratico-2>
 
-Para executar localmente clone o projeto e execute os seguintes comandos no terminal em ordem
+Para executar localmente você precisara do [Node](https://nodejs.org/en/download) instalado depois disso siga as instruções abaixo
+
+Clone o projeto e execute os seguintes comandos no terminal em ordem
 
 ```sh
 npm install
