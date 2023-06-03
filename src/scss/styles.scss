@@ -210,6 +210,16 @@ img {
   border: 1px solid #ddd;
 }
 
+.no-products {
+  font-size: 1vw;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 @media screen and (max-width: 600px) {
   .search-product-display {
     width: 100%;

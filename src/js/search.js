@@ -132,7 +132,17 @@ function fillProductsDisplay(products) {
 }
 
 function showNoProductsFound() {
-  // TODO
+  const productsDisplay = document.getElementById("products-search-result");
+  const noProductsDiv = document.createElement('div');
+  noProductsDiv.className = "no-products";
+    
+  const title = document.createElement('a');
+  title.textContent = "No products found with filter, click to return to Home page";
+  noProductsDiv.appendChild(title);
+  title.classList.add("no-products-title");
+  title.setAttribute('href', 'home.html');
+
+  productsDisplay.appendChild(noProductsDiv);
 }
 
 async function setup() {
@@ -148,9 +158,8 @@ async function setup() {
   if (products.length > 0) {
     fillProductsDisplay(products);
   } else {
-    showNoProductsFound()
+    showNoProductsFound();
   }
-
 }
 
 if (window.location.pathname.includes('/search.html')) {
