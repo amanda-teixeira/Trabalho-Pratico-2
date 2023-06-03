@@ -12,7 +12,7 @@ async function handleSearch({ category, brand, minPrice, maxPrice, text }) {
         if(minPrice && parseFloat(product.price) < parseFloat(minPrice)) return false
         if (maxPrice && parseFloat(product.price) > parseFloat(maxPrice)) return false
 
-        if (brand) {
+        if (brand && brand !== 'all') {
           if (!product.title.toLowerCase().includes(brand.toLowerCase())) return false
         }
 
